@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
     srand(static_cast<unsigned int>(time(0)));
     
     //Declare all Variables and initialize Here
-    int size=100;
+    int size=95;
     int mod=10;
     int *array=fillAry(size,mod);
     

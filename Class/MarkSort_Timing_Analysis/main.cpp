@@ -17,11 +17,9 @@ using namespace std;
 //Like PI, e, Gravity, or conversions
 
 //Function Prototypes Here
-int *fillAry(int,int);
+int *fillAry(int);
 void prntAry(int *,int,int);
 void mrkSort(int *,int);
-void shuffle(int *,int,int);
-
 
 //Program Execution Begins Here
 int main(int argc, char** argv) {
@@ -29,39 +27,28 @@ int main(int argc, char** argv) {
     srand(static_cast<unsigned int>(time(0)));
     
     //Declare all Variables and initialize Here
-    int size=100;
+    int size=320000;
     int mod=10;
-    int *array=fillAry(size,mod);
+    int *array=fillAry(size);
     
     //Print the resulting array
-    prntAry(array,size,mod);
-    
-    //Shuffle the array
-    shuffle(array,size,7);
-    
-    //Print the shuffled array
-    prntAry(array,size,mod);
+    //prntAry(array,size,mod);
     
     //Sort the array
+    int beg=time(0);
     mrkSort(array,size);
+    int end=time(0);
+    cout<<"Size of Array  = "<<size<<endl;
+    cout<<"Execution time = "<<end-beg<<" secs"<<endl;
     
     //Output Located Here
-    prntAry(array,size,mod);
+    //prntAry(array,size,mod);
     
     //Clean Memory
     delete []array;
 
     //Exit
     return 0;
-}
-
-void shuffle(int *a,int n,int nShuf){
-    for(int shuf=1;shuf<=nShuf;shuf++){
-        for(int i=0;i<n;i++){
-            int temp=rand()%n;
-            if(i!=temp)swap(a[i],a[temp]);
-        }
-    }
 }
 
 void mrkSort(int *a,int n){
@@ -86,10 +73,10 @@ void prntAry(int *a,int n,int perLine){
     cout<<endl;
 }
 
-int *fillAry(int n,int m){
+int *fillAry(int n){
     int *array=new int[n];
     for(int i=0;i<n;i++){
-        array[i]=i%m;
+        array[i]=rand();
     }
     return array;
 }
