@@ -19,7 +19,7 @@ using namespace std;
 //Function Prototypes
 Simple *fillObj(int);
 void prntObj(Simple *,int,int);
-void destroy(Simple *,int);
+void destroy(Simple *);
 
 //Execution Begins Here!
 int main(int argc, char** argv) {
@@ -27,21 +27,21 @@ int main(int argc, char** argv) {
     srand(static_cast<unsigned int>(time(0)));
     
     //Declare Simple Object array
-    const int SIZE=100;
+    int size=100;
     
     //Create a dynamic array of simple objects
-    Simple *simple=fillObj(SIZE);
+    Simple *simple=fillObj(size);
     
     //Output the results
-    prntObj(simple,SIZE,10);
+    prntObj(simple,size,10);
     
     //Recover Allocated Memory
-    destroy(simple,SIZE);
+    destroy(simple);
     
     return 0;
 }
 
-void destroy(Simple *s,int n){
+void destroy(Simple *s){
     delete []s;//Destruction of the array of pointers of the Objects
 }
 
