@@ -46,9 +46,9 @@ int main(int argc, char** argv) {
     
     //Find some values in the List
     cout<<"This Object "<<valFnd1
-            <<"is found at link    "<<lnkList->findLst(valFnd1)<<endl;
+            <<"is found at link    "<<lnkList->findLst(valFnd1)<<endl<<endl;
     cout<<"This Object "<<valFnd2
-            <<"is found at link   "<<lnkList->findLst(valFnd2)<<endl;
+            <<"is found at link   "<<lnkList->findLst(valFnd2)<<endl<<endl;
     cout<<endl<<
             "The number of elements in the list = "<<lnkList->cntLst()<<endl;
     
