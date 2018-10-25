@@ -24,13 +24,19 @@ float aExp(int,int);   //approximate bloom filter sum
 float eExp(int,int);   //exact bloom filter sum
 int gcd(int,int);      //greatest common divisor
 float fv(float,float,int);//future value function
+float fvReq(float,float,int);//future value function
 int mx(int [],int,int);//Find a maximum in the array
+int bCoeff(int,int);//Recursion for the binomial coefficients
+int fib(int);
+int fibRec(int);
+double cosRec(double);
+double sinRec(double);
 
 //Execution Begins Here!
 int main(int argc, char** argv) {
     //Declare Variables
     int n=365;
-    int km=32;
+    int km=28;
     int num=920,den=138,snum,sden;
     
     //Output for a comparison Bloop Filter
@@ -56,15 +62,90 @@ int main(int argc, char** argv) {
     cout<<"Present Value = $"<<pv<<endl;
     cout<<"Interest Rate = "<<ir*100<<"%"<<endl;
     cout<<"Compounding Periods = "<<nc<<" years"<<endl;
+    cout<<"Future Recursive Value = $"<<fvReq(pv,ir,nc)<<endl;
     cout<<"Future Value = $"<<fv(pv,ir,nc)<<endl;
     
     //Output the maximum value in an array
     int a[]={1,2,3,4,3,2};
     cout<<endl<<"Max value in the array = "<<mx(a,0,5)<<endl;
     
+    //Output Pascal's Triangle
+    cout<<endl<<endl;
+    for(int row=0;row<=10;row++){
+        for(int col=0;col<=row;col++){
+            cout<<bCoeff(row,col)<<" ";
+        }
+        cout<<endl;
+    }
+    
+    //Look at Fibonacci
+    cout<<endl<<endl;
+    cout<<fib(10)<<"="<<fibRec(10)<<endl;
+    
+    //Mutual Recursive Trig Functions
+    cout<<endl<<endl;
+    for(float alpha=-1;alpha<=1;alpha+=.1){
+        cout<<"Sin("<<alpha<<")="
+                <<sin(alpha)<<"="<<sinRec(alpha)<<endl;
+    }
+    cout<<endl<<endl;
+    for(float alpha=-1;alpha<=1;alpha+=.1){
+        cout<<"Cos("<<alpha<<")="
+                <<cos(alpha)<<"="<<cosRec(alpha)<<endl;
+    }
     
     //Exit program!
     return 0;
+}
+
+double cosRec(double angle){
+    //Base Case
+    double tol=1e-12f;
+    if(abs(angle)<tol)return 1-angle*angle/2;
+    //Recursive Call
+    double a=cosRec(angle/2);
+    double b=sinRec(angle/2);
+    return a*a-b*b;
+}
+
+double sinRec(double angle){
+    //Base Case
+    double tol=1e-6f;
+    if(abs(angle)<tol)return angle-angle*angle*angle/6;
+    //Recursive Call
+    double a=cosRec(angle/2);
+    double b=sinRec(angle/2);
+    return 2*a*b;
+}
+
+int fibRec(int n){
+    //Base Conditions
+    if(n==0)return 0;
+    if(n==1)return 1;
+    //Recursive Call
+    return fib(n-1)+fib(n-2);
+}
+
+int fib(int n){
+    //Base Conditions
+    if(n==0)return 0;
+    if(n==1)return 1;
+    //Non-Recursive Call
+    int cnt=2,fnm1=1,fnm2=0,fn;
+    do{
+        fn=fnm1+fnm2;
+        fnm2=fnm1;
+        fnm1=fn;
+    }while(++cnt<n);
+    return fn;
+}
+
+int bCoeff(int row,int col){
+    //Base Conditions
+    if(col==0)return 1;
+    if(row==col)return 1;
+    //Recursive Call
+    return bCoeff(row-1,col-1)+bCoeff(row-1,col);
 }
 
 int mx(int a[],int beg,int end){
@@ -75,9 +156,16 @@ int mx(int a[],int beg,int end){
     return (m1>m2?m1:m2);
 }
 
-float fv(float pv,float ir,int nc){
+float fvReq(float pv,float ir,int nc){
     if(nc<=0)return pv;
     return fv(pv,ir,nc-1)*(1+ir);
+}
+
+float fv(float pv,float ir,int nc){
+    for(int i=1;i<=nc;i++){
+        pv*=(1+ir);
+    }
+    return pv;
 }
 
 int gcd(int m,int n){
